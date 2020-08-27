@@ -10,6 +10,7 @@ namespace PharmaCO_MVC.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Index";
             return View();
         }
 
