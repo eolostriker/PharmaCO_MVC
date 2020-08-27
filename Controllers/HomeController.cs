@@ -12,8 +12,14 @@ namespace PharmaCO_MVC.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Index";
-            return View();
+            if (Session["UsuarioLogado"] != null)
+            {
+                return View("Detalhes", (Usuario)Session["UsuarioLogado"]);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public ActionResult Registro()
@@ -23,24 +29,36 @@ namespace PharmaCO_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registro(Usuario _usuario)
+        public ActionResult Registro(Usuario usuario)
         {
-            if (!UsuarioDAO.VerificaEmail(_usuario.Email))
+            if (!UsuarioDAO.VerificaEmail(usuario.Email))
             {
                 //Aqui deveríamos verificar se o usuário já esta registrado
-                UsuarioDAO.InsertUsuario(_usuario);
-                _usuario = null;
+                UsuarioDAO.InsertUsuario(usuario);
+                usuario = null;
                 ViewBag.Message = "Usuário registrado com sucesso.";
 
             }
-            return View(_usuario);
+            return View(usuario);
         }
 
-        public ActionResult Contact()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Usuario usuario)
+        {
+            usuario = UsuarioDAO.VerificaLogin(usuario.Login, usuario.Senha);
+            if (usuario != null)
+            {
+                Session["UsuarioLogado"] = usuario;
+                return RedirectToAction("Index");
+            }
+
+            return View(usuario);
         }
     }
 }

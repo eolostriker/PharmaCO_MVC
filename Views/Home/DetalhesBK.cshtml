@@ -1,0 +1,49 @@
+﻿@model PharmaCO_MVC.Models.Usuario
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Nome)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Nome)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Idade)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Idade)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Login)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Login)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Senha)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Senha)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.Email)
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+    </div>
+</div>
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UsuarioId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

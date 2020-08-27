@@ -16,14 +16,39 @@ namespace PharmaCO_MVC.DAO
             DBConnection conn = new DBConnection();
             DataSet ds = new DataSet();
 
-            SqlDataAdapter adapter = new SqlDataAdapter(string.Format("SELECT * FROM Usuarios WHERE Email = {0}",email), conn.cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter(string.Format("SELECT * FROM Usuarios WHERE Email = '{0}'", email), conn.cnn);
             adapter.SelectCommand.CommandType = CommandType.Text;
             adapter.Fill(ds);
             var existeEmail = ds.Tables[0].Rows.Count;
-                if (existeEmail > 0)
-                    return true;
-                else
-                    return false;
+            if (existeEmail > 0)
+                return true;
+            else
+                return false;
+
+        }
+        public static Usuario VerificaLogin(string login, string senha)
+        {
+            DBConnection conn = new DBConnection();
+            DataSet ds = new DataSet();
+            Usuario usuario = null;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(string.Format("SELECT * FROM Usuarios WHERE Usuario = '{0}' AND Senha = '{1}'", login, senha), conn.cnn);
+            adapter.SelectCommand.CommandType = CommandType.Text;
+            adapter.Fill(ds);
+            var existelogin = ds.Tables[0].Rows.Count;
+            if (existelogin > 0)
+            {
+                DataRow dr = ds.Tables[0].Rows[0];
+                usuario = new Usuario();
+                usuario.UsuarioId = Convert.ToInt32(dr["UsuarioId"].ToString());
+                usuario.Nome = dr["Nome"].ToString();
+                usuario.Idade = Convert.ToInt32(dr["Idade"].ToString());
+                usuario.Login = dr["Usuario"].ToString();
+                usuario.Senha = dr["Senha"].ToString();
+                usuario.Email = dr["Email"].ToString();
+            }
+
+            return usuario;
 
         }
         public static void InsertUsuario(Usuario usuario)

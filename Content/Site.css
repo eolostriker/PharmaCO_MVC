@@ -1,4 +1,8 @@
-﻿body {
+﻿html {
+    font-family: 'Montserrat' !important;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -7,6 +11,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: #F6F4F3 !important;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,4 +26,16 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.btn{
+    background-color: #F72C25 !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.navbar{
+    background-color: #276FBF !important;
+    color: white !important;
+    font-weight: bold !important;
 }
