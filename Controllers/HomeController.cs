@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PharmaCO_MVC.DAO;
+using PharmaCO_MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,11 +16,24 @@ namespace PharmaCO_MVC.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Registro()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registro(Usuario _usuario)
+        {
+            if (!UsuarioDAO.VerificaEmail(_usuario.Email))
+            {
+                //Aqui deveríamos verificar se o usuário já esta registrado
+                UsuarioDAO.InsertUsuario(_usuario);
+                _usuario = null;
+                ViewBag.Message = "Usuário registrado com sucesso.";
+
+            }
+            return View(_usuario);
         }
 
         public ActionResult Contact()
